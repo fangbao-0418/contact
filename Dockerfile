@@ -3,7 +3,7 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 RUN apk add curl
 
-COPY target/*.jar /app/app.jar
+COPY target/eiot6-0.0.1-SNAPSHOT.jar app.jar
 
 RUN apk add --no-cache tzdata
 
