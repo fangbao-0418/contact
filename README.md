@@ -14,3 +14,7 @@ mvn spring-boot:run
 ```
 mvn package
 ```
+
+## 运行环境
+
+java -jar app.jar --spring.profiles.active=dev

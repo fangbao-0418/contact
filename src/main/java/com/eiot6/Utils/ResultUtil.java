@@ -1,8 +1,8 @@
 package com.eiot6.Utils;
 
 public class ResultUtil {
-    public static Result success(Object object) {
-        Result<Object> result = new Result<Object>();
+    public static <T> Result<T> success(T object) {
+        Result<T> result = new Result<T>();
         result.setCode(0);
         result.setSuccess(true);
         result.setMsg("成功");
@@ -10,8 +10,8 @@ public class ResultUtil {
         return result;
     }
 
-    public static Result error(Integer code, String msg) {
-        Result result = new Result();
+    public static <T> Result<T> error(Integer code, String msg) {
+        Result<T> result = new Result<T>();
         result.setCode(code);
         result.setMsg(msg);
         return result;

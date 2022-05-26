@@ -18,10 +18,19 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
+import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
+
+import static org.springframework.core.env.StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME;
+import static org.springframework.core.env.StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME;
+
 @RestController
 @SpringBootApplication
 @EnableSwagger2
+@NacosPropertySource(dataId = Main.DATA_ID, first = true, before = SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, after = SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME)
+@EnableNacosConfig
 public class Main {
+    public static final String DATA_ID = "eiot6-dev.properties";
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
