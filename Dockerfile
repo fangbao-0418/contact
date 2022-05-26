@@ -3,7 +3,7 @@ FROM openjdk:8-jdk-alpine
 WORKDIR /app
 RUN apk add curl
 
-COPY target/*.jar app.jar
+COPY target/*.jar /app/app.jar
 
 ENV RUN_ENV=${RUN_ENV}
 RUN apk add --no-cache tzdata
