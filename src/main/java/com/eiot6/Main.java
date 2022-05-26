@@ -30,7 +30,7 @@ import static org.springframework.core.env.StandardEnvironment.SYSTEM_PROPERTIES
 @NacosPropertySource(dataId = Main.DATA_ID, first = true, before = SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, after = SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME)
 @EnableNacosConfig
 public class Main {
-    public static final String DATA_ID = "eiot6-dev.properties";
+    public static final String DATA_ID = "eiot6.properties";
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
