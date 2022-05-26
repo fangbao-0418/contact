@@ -5,12 +5,11 @@ RUN apk add curl
 
 COPY target/*.jar app.jar
 
-ENV RUN_ENV=${RUN_ENV}
 RUN apk add --no-cache tzdata
 
 ENV TZ="Asia/Shanghai"
 
 EXPOSE 7002
 
-CMD java -jar app.jar --spring.profiles.active=dev
+CMD java -jar app.jar --spring.profiles.active=prod
 
