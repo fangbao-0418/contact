@@ -1,4 +1,4 @@
-package com.eiot6.Contract;
+package com.eiot6.Contact;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import io.swagger.annotations.ApiOperation;
@@ -14,14 +14,14 @@ import java.net.UnknownHostException;
 @RestController
 @Api(tags = {"官网"}, description = "官网")
 // @SpringBootApplication
-public class ContractApplication {
+public class ContactApplication {
   @Autowired
-  private ContractRepository contractRepository;
+  private ContactRepository contractRepository;
 
   @ApiOperation(value = "新增联系信息")
 	@PostMapping(path="/api/submit/contact")
-  Result<Boolean> submitContract(@RequestBody ContractCreateVO body) {
-    Contract data = new Contract();
+  Result<Boolean> submitContract(@RequestBody ContactCreateVO body) {
+    Contact data = new Contact();
     data.setName(body.name);
     data.setcompany(body.company);
     data.setBuildingType(body.building_type);

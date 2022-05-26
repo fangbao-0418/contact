@@ -1,4 +1,4 @@
-CREATE TABLE `contract` (  
+CREATE TABLE `contact` (  
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
     `name` varchar(32) NOT NULL DEFAULT '' COMMENT '姓名',
     `telephone` varchar(32) NOT NULL DEFAULT '' COMMENT '电话',

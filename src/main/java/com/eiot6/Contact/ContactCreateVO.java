@@ -1,4 +1,4 @@
-package com.eiot6.Contract;
+package com.eiot6.Contact;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,7 +6,7 @@ import javax.persistence.Column;
  
 // @Data
 @ApiModel("创建Swagger响应结果")
-public class ContractCreateVO {
+public class ContactCreateVO {
  
     @ApiModelProperty("id")
     public Integer id;
