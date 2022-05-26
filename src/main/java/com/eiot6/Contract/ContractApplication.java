@@ -19,7 +19,7 @@ public class ContractApplication {
   private ContractRepository contractRepository;
 
   @ApiOperation(value = "新增联系信息")
-	@PostMapping(path="/api/submit/contract")
+	@PostMapping(path="/api/submit/contact")
   Result<Boolean> submitContract(@RequestBody ContractCreateVO body) {
     Contract data = new Contract();
     data.setName(body.name);
