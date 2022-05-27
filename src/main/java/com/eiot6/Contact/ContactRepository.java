@@ -11,6 +11,6 @@ public interface ContactRepository extends CrudRepository<Contact, Integer> {
     // @Query("UPDATE User u SET u.name = :name WHERE u.id = :id")
     // void updateName(@Param("id") Integer id, @Param("name") String name);
 
-    // @Query("select u from User u where u.id = :id")
-    // Contract findByUid(@Param("id") Integer id);
+    @Query("select count(*) from Contact c where c.ip = :ip")
+    int getIpCount(@Param("ip") String ip);
 }

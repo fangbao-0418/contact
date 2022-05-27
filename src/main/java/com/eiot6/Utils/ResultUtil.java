@@ -13,6 +13,7 @@ public class ResultUtil {
     public static <T> Result<T> error(Integer code, String msg) {
         Result<T> result = new Result<T>();
         result.setCode(code);
+        result.setSuccess(false);
         result.setMsg(msg);
         return result;
     }
