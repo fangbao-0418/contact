@@ -6,8 +6,11 @@ CREATE TABLE `contact` (
     `building_type` varchar(200) NOT NULL DEFAULT '' COMMENT '建筑类型',
     `description` varchar(250) NOT NULL DEFAULT '' COMMENT '需求描述',
     `ip` varchar(20) NOT NULL DEFAULT '' COMMENT 'ip',
-    `gmt_create` int(13) NOT NULL COMMENT '创建日期'
+    `gmt_create` BIGINT(13) NOT NULL COMMENT '创建日期'
 ) DEFAULT CHARSET utf8mb4 COMMENT '联系信息';
+
+ALTER TABLE contact ADD COLUMN ip VARCHAR(20) NOT NULL DEFAULT '' COMMENT 'ip'
+ALTER TABLE contact ADD COLUMN gmt_create BIGINT(13) NOT NULL COMMENT 'gmt_create'
 
 CREATE TABLE `hibernate_sequence` (
   `next_val` bigint DEFAULT NULL
