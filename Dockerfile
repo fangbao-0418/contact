@@ -1,15 +1,16 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jdk-debian
+
+ARG RUN_ENV
 
 WORKDIR /app
-RUN apk add curl
 
-COPY target/eiot6-0.0.1-SNAPSHOT.jar app.jar
-
-RUN apk add --no-cache tzdata
-
-ENV TZ="Asia/Shanghai"
+COPY target/*.jar app.jar
 
 EXPOSE 7002
 
-CMD java -jar app.jar --spring.profiles.active=dev
+CMD java -jar app.jar --spring.profiles.active=${RUN_ENV}
+
+ENV spring_datasource_username="root"
+ENV spring_datasource_password="root"
+ENV RUN_ENV=${RUN_ENV}
 

@@ -16,5 +16,8 @@ mvn package
 ```
 
 ## 运行环境
-
 java -jar app.jar --spring.profiles.active=dev
+
+## docker
+docker build --build-arg RUN_ENV=prod -t eiot6:latest .
+docker run --rm --name eiot6 -p 7002:7002 eiot6:latest

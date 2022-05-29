@@ -2,10 +2,13 @@ package com.eiot6.Contact;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.persistence.Column;
- 
-// @Data
+import lombok.*; 
+
 @ApiModel("创建Swagger响应结果")
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class ContactCreateVO {
  
     @ApiModelProperty("id")
@@ -25,4 +28,5 @@ public class ContactCreateVO {
 
     @ApiModelProperty(name = "需求描述 len:250", required = true)
     public String description;
+
 }
