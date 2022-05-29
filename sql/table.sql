@@ -17,3 +17,12 @@ CREATE TABLE `hibernate_sequence` (
 ) DEFAULT CHARSET=utf8mb4 COMMENT 'hibernate';
 
 INSERT INTO  `hibernate_sequence` (next_val) VALUES (1);
+
+CREATE TABLE `meta` (  
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
+    `code` varchar(32) NOT NULL DEFAULT '' COMMENT 'code',
+    `text` varchar(255) NOT NULL DEFAULT '' COMMENT '文本',
+    `lang` varchar(100) NOT NULL DEFAULT '' COMMENT '语言',
+    `gmt_create` BIGINT(13) NOT NULL COMMENT '创建日期',
+		`gmt_modify` BIGINT(13) NOT NULL COMMENT '修改日期'
+) DEFAULT CHARSET utf8mb4
