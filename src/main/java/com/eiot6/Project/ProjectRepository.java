@@ -7,6 +7,4 @@ import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 
 public interface ProjectRepository extends CrudRepository<ProjectEntity, Integer> {
-  @Query("select count(*) from Contact c where c.ip = :ip")
-  int getIpCount(@Param("ip") String ip);
 }

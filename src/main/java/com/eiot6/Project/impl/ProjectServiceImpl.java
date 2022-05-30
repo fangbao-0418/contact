@@ -4,12 +4,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.swing.tree.RowMapper;
-
-import com.alibaba.fastjson.JSON;
 import com.eiot6.Project.ProjectEntity;
 import com.eiot6.Project.ProjectRepository;
 import com.eiot6.Project.ProjectService;
-import com.eiot6.Project.Text;
 import com.eiot6.Project.dto.ProjectCreateVO;
 import com.eiot6.Project.dto.TextVO;
 import com.eiot6.Utils.JpaUtil;
@@ -83,19 +80,24 @@ public class ProjectServiceImpl implements ProjectService {
   public Result<TextVO> editText(TextVO body) {
     Optional<ProjectEntity> originalProject = projectRegistory.findById(body.projectId);
     String table = originalProject.get().getIdentifier();
-    String sql = "SELECT * FROM " + table + " WHERE id = " + body.id;
-    // TextVO res = new TextVO();
-    Map<String, Object> map = jdbcTemplate.queryForMap(sql);
-    String str = JSON.toJSONString(map);
-    // TextVO res = JSON.parseObject(JSON.toJSONString(map), TextVO.class);
-    // queryForMap
-    // Long t = System.currentTimeMillis();
-    // String sql = "UPDATE TABLE " + table
-    // + "SET code = " + body.code
-    // + ", text = " + body.text
-    // + ", lang = " + body.lang
-    // + ", gmt_create = " + originalProject.gmt_create
-    // + ", gmt_modify = " + t;
+    String sql = "SELECT id, code, text, lang, gmt_create, gmt_modify FROM " + table + " WHERE id = " + body.id;
+
+    TextVO res = jdbcTemplate.queryForObject(sql, new TextVO());
+    res.setProjectId(body.projectId);
+
+    JpaUtil.copyNotNullProperties(res, body);
+
+    Long t = System.currentTimeMillis();
+    body.setGmt_modify(t);
+    String sql2 = "UPDATE " + table
+    + " SET code = '" + body.code
+    + "', text = '" + body.text
+    + "', lang = '" + body.lang
+    + "', gmt_create = " + res.gmt_create
+    + ", gmt_modify = " + t
+    + " WHERE id = " + body.id;
+    jdbcTemplate.execute(sql2);
     return ResultUtil.success(body);
+
   }
 }
