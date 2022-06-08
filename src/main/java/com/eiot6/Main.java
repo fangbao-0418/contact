@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+// import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -26,7 +26,7 @@ import static org.springframework.core.env.StandardEnvironment.SYSTEM_PROPERTIES
 
 @RestController
 @SpringBootApplication
-@EnableSwagger2
+// @EnableSwagger2
 // @NacosPropertySource(dataId = Main.DATA_ID, first = true, before = SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME, after = SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME)
 // @EnableNacosConfig
 public class Main {
@@ -52,7 +52,7 @@ public class Main {
 
     @Bean
     public Docket createRestApi() {
-           return new Docket(DocumentationType.SWAGGER_2)
+           return new Docket(DocumentationType.OAS_30)
                    .apiInfo(apiInfo())
                    .select()
                     //    .apis(RequestHandlerSelectors.basePackage("com.blog.tutorial.controller"))
@@ -67,7 +67,7 @@ public class Main {
                 //    .license("http://localhost:7001/")
                 //    .licenseUrl("http://localhost:7001/")
                 //    .contact("developer@mail.com")
-                   .version("1.0")
+                   .version("3.0")
                    .build();
        }
 

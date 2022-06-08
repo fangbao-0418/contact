@@ -1,8 +1,15 @@
 package com.eiot6.Project.impl;
 
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.tree.RowMapper;
 import com.eiot6.Project.ProjectEntity;
 import com.eiot6.Project.ProjectRepository;
@@ -13,12 +20,17 @@ import com.eiot6.Utils.JpaUtil;
 import com.eiot6.Utils.Result;
 import com.eiot6.Utils.ResultUtil;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Service;
+
+import cn.hutool.poi.excel.BigExcelWriter;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -49,6 +61,52 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
+  public Result<Iterable<ProjectEntity>> listProject() {
+    Iterable<ProjectEntity> list = projectRegistory.findAll();
+    // List<ProjectEntity> project = new ProjectEntity();
+    ExcelWriter excelWriter = new ExcelWriter();
+    excelWriter.addHeaderAlias("name", "姓名");
+    excelWriter.close();
+    return ResultUtil.success(list);
+  }
+
+
+  @Override
+  public FilterOutputStream exportProject(HttpServletResponse response) {
+    Iterable<ProjectEntity> list = projectRegistory.findAll();
+    // List<ProjectEntity> project = new ProjectEntity();
+
+    // List employees = new ArrayList<>();
+
+    // for (int i = 0; i < 10; i++) {
+
+    //     employees.add(new Employee(i + 18, "a" + i));
+
+    // }
+    
+    ExcelWriter excelWriter = ExcelUtil.getWriter();
+    excelWriter.addHeaderAlias("name", "姓名");
+    
+    excelWriter.merge(1, "员工信息表");
+    excelWriter.write(list, true);
+    ServletOutputStream out = null;
+
+    response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    String name = ("XXX国际贸易公司");
+    response.setHeader("content-disposition", "attachment;filename=" + name + ".xls");
+    try {
+      out = response.getOutputStream();
+      excelWriter.flush(out, true);
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } finally {
+      excelWriter.close();
+    }
+    return null;
+  }
+
+  @Override
   public Result<ProjectCreateVO> editProject(ProjectCreateVO body) {
     ProjectEntity project = new ProjectEntity();
     JpaUtil.copyNotNullProperties(body, project);
@@ -72,7 +130,8 @@ public class ProjectServiceImpl implements ProjectService {
     String sql = "INSERT INTO " + table
     + " (code, text, lang, gmt_create, gmt_modify) VALUES"
     + " ('" + body.code + "', '" + body.text + "', '"+ body.lang + "', " + t + ", "+ t + ")";
-    jdbcTemplate.execute(sql);
+    int id = jdbcTemplate.update(sql);
+    body.setId(id);
     return ResultUtil.success(body);
   }
 

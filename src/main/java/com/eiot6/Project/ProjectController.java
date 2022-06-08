@@ -2,7 +2,11 @@ package com.eiot6.Project;
 
 import org.springframework.web.bind.annotation.*;
 import io.swagger.annotations.Api;
+
+import java.io.FilterOutputStream;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import com.eiot6.Project.dto.ProjectCreateVO;
 import com.eiot6.Project.dto.TextVO;
@@ -14,6 +18,17 @@ public class ProjectController {
 
   @Resource
   public ProjectService projectService;
+
+  @GetMapping("/list/project")
+  Result<Iterable<ProjectEntity>> listPoject () {
+    return projectService.listProject();
+  }
+
+  @GetMapping("/export/project")
+  FilterOutputStream exportPoject (HttpServletResponse response) {
+    return projectService.exportProject(response);
+  }
+
 
   @PostMapping("/create/project")
   Result<Boolean> createPoject (@RequestBody ProjectCreateVO body) {
